@@ -4,17 +4,11 @@ metadata:
   name: nginx-config
 data:
   nginx.conf: |
-    events {
-      worker_connections 1024;
-    }
     http {
-    upstream chas {
-        server can-haul-api-service:3000;
-    }
       server {
         listen 80;
         location /api {
-          proxy_pass http://chas;  # Points to the API Service
+          proxy_pass http://can-haul-api-service;  # Points to the API Service
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
         }
