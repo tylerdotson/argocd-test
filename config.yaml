@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: can-haul-io-dashboard-deployment
+  name: can-haul-io-dashboard
 spec:
   replicas: 5
   selector:
@@ -17,7 +17,3 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
-        - name: canhaulapi
-          image: registry.digitalocean.com/can-haul-io-container-registry/canhaulapi:latest
-          ports:
-            - containerPort: 3000
