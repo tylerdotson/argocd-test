@@ -8,8 +8,14 @@ data:
     http {
       server {
         listen 80;
-        location / {
+        location /api {
           proxy_pass http://can-haul-api-service:3000;  # Points to the API Service
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+        }
+    
+        location /app {
+          proxy_pass http://can-haul-app-service:9000;  # Points to the front end
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
         }
