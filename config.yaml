@@ -17,3 +17,7 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+        - name: can-haul-api
+          image: registry.digitalocean.com/can-haul-io-registry/canhaul/api:latest
+          ports:
+            - containerPort: 3000
