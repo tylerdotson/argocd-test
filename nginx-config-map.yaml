@@ -13,11 +13,5 @@ data:
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
         }
-    
-        location /app {
-          proxy_pass http://can-haul-app-service:9000;  # Points to the front end
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-        }
       }
     }
