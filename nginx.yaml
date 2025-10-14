@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: can-haul-nginx
+spec:
+  replicas: 3  # Adjust as needed
+  selector:
+    matchLabels:
+      app: can-haul-nginx
+  template:
+    metadata:
+      labels:
+        app: can-haul-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nginx-config
+      # Optional: Add affinity to co-locate with API Pods
+      # affinity:
+      #   podAffinity:
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #       - weight: 100
+      #         podAffinityTerm:
+      #           labelSelector:
+      #             matchExpressions:
+      #               - key: app
+      #                 operator: In
+      #                 values:
+      #                   - can-haul-api
+      #           topologyKey: "kubernetes.io/hostname"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: can-haul-nginx-service
+spec:
+  selector:
+    app: can-haul-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer  # Or NodePort/ClusterIP based on needs

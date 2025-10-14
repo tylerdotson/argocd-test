@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: can-haul-api
+spec:
+  replicas: 3  # Adjust as needed
+  selector:
+    matchLabels:
+      app: can-haul-api
+  template:
+    metadata:
+      labels:
+        app: can-haul-api
+    spec:
+      containers:
+        - name: can-haul-api
+          image: registry.digitalocean.com/can-haul-io-registry/canhaul/api:latest
+          ports:
+            - containerPort: 3000
+          # Add resources, probes, env vars as needed
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: can-haul-api-service
+spec:
+  selector:
+    app: can-haul-api
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP  # Internal access only
