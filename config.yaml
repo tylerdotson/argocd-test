@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: can-haul-io-dashboard
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: can-haul-io-dashboard
@@ -17,3 +17,7 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+        - name: can-haul-api
+          image: registry.digitalocean.com/can-haul-io-registry/canhaul/api:latest
+          ports:
+            - containerPort: 3000
