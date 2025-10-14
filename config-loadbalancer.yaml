@@ -5,7 +5,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: can-haul-nginx-service
+    app: can-haul-nginx
   ports:
     - port: 80
       targetPort: 80

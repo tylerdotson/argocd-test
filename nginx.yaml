@@ -38,18 +38,3 @@ spec:
       #                 values:
       #                   - can-haul-api
       #           topologyKey: "kubernetes.io/hostname"
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: can-haul-nginx-service
-spec:
-  selector:
-    app: can-haul-nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer  # Or NodePort/ClusterIP based on needs
