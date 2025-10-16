@@ -1,35 +1,35 @@
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: can-haul-app
-#spec:
-#  replicas: 1  # Adjust as needed
-#  selector:
-#    matchLabels:
-#      app: can-haul-app
-#  template:
-#    metadata:
-#      labels:
-#        app: can-haul-app
-#    spec:
-#      containers:
-#        - name: can-haul-api
-#          image: registry.digitalocean.com/can-haul-io-registry/canhaul/app:latest
-#          ports:
-#            - containerPort: 9000
-#          # Add resources, probes, env vars as needed
-#
-#---
-#
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: can-haul-app-service
-#spec:
-#  selector:
-#    app: can-haul-app
-#  ports:
-#    - protocol: TCP
-#      port: 9000
-#      targetPort: 9000
-#  type: ClusterIP  # Internal access only
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: can-haul-app
+spec:
+  replicas: 1  # Adjust as needed
+  selector:
+    matchLabels:
+      app: can-haul-app
+  template:
+    metadata:
+      labels:
+        app: can-haul-app
+    spec:
+      containers:
+        - name: can-haul-api
+          image: registry.digitalocean.com/can-haul-io-registry/canhaul/app:latest
+          ports:
+            - containerPort: 9000
+          # Add resources, probes, env vars as needed
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: can-haul-app-service
+spec:
+  selector:
+    app: can-haul-app
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+  type: ClusterIP  # Internal access only
