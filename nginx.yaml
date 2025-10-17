@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: can-haul-nginx
+  name: can-haul-dashboard-frontend
 spec:
   replicas: 3  # Adjust as needed
   selector:
     matchLabels:
-      app: can-haul-nginx
+      app: can-haul-dashboard-frontend
   template:
     metadata:
       labels:
-        app: can-haul-nginx
+        app: can-haul-dashboard-frontend
     spec:
       containers:
-        - name: nginx
-          image: nginx:latest
+        - name: dashboard
+          image: registry.digitalocean.com/can-haul-io-registry/canhaul/app:latest
           ports:
             - containerPort: 80
           volumeMounts:
@@ -25,16 +25,3 @@ spec:
         - name: config-volume
           configMap:
             name: nginx-config
-      # Optional: Add affinity to co-locate with API Pods
-      # affinity:
-      #   podAffinity:
-      #     preferredDuringSchedulingIgnoredDuringExecution:
-      #       - weight: 100
-      #         podAffinityTerm:
-      #           labelSelector:
-      #             matchExpressions:
-      #               - key: app
-      #                 operator: In
-      #                 values:
-      #                   - can-haul-api
-      #           topologyKey: "kubernetes.io/hostname"
