@@ -9,6 +9,13 @@ spec:
     - host: canhaul.io
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: can-haul-api-service
+                port:
+                  number: 3000
           - path: /
             pathType: Prefix
             backend:
