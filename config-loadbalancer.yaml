@@ -13,6 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: can-haul-dashboard-frontend
+                name: can-haul-dashboard-service
                 port:
                   number: 80
