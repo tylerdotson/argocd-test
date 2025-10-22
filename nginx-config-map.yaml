@@ -7,17 +7,22 @@ data:
     events {}
     http {
       server {
-        listen 80;
-        location / {
-          proxy_pass http://can-haul-app-service:9000;  # Points to the API Service
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+    
+        server_name localhost;
+    
+        location /api {
+          proxy_pass http://can-haul-api-service:3000/;  # Points to the API Service
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
         }
     
-        location /api {
-          proxy_pass http://can-haul-api-service:3000;  # Points to the API Service
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-        }
+        location / {
+            try_files $uri $uri/ =404;
+        }    
       }
     }
