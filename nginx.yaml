@@ -25,3 +25,18 @@ spec:
         - name: config-volume
           configMap:
             name: nginx-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: can-haul-dashboard-service
+spec:
+  selector:
+    app: can-haul-dashboard-frontend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP  # Internal access only
