@@ -4,6 +4,10 @@ metadata:
   name: ingress
   namespace: default
 spec:
+  tls:
+    - hosts:
+        - canhaul.io
+      secretName:  can-haul-tls
   ingressClassName: nginx
   rules:
     - host: canhaul.io
